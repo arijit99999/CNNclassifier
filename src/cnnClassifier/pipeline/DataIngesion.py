@@ -10,3 +10,6 @@ class DataIngesionPipeline():
         b=datadownload()
         m=b.download(x)
         b.unzip(x)
+
+
+#5th upgrade this pipeline file for data ingesion

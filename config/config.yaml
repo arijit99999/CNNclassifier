@@ -6,3 +6,9 @@ data_ingestion:
   source_URL: 'https://drive.google.com/uc?id=1CscVSu8TXjX8ePy4YeO6nX8oeDWGoQgG'   #donload url
   local_data_file: artifacts/data_ingestion/data.zip   #output=data.zip
   unzip_dir: artifacts/data_ingestion  #unzip in data ingestion folder
+
+
+
+
+  
+  #1st write this yaml file for data ingesion
