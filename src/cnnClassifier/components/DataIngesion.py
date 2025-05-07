@@ -5,7 +5,6 @@ import os
 import sys
 import gdown
 import zipfile
-from src.cnnClassifier.config.configuration import ConfigManager
 
 
 

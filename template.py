@@ -7,12 +7,14 @@ list_of_files = [
     f"src/{project_name}/__init__.py",
     f"src/{project_name}/components/__init__.py",
     f"src/{project_name}/components/DataIngesion.py",
+    f"src/{project_name}/components/PerpareBaseModel.py",
     f"src/{project_name}/utils/__init__.py",
     f"src/{project_name}/utils/utils.py",
     f"src/{project_name}/config/__init__.py",
     f"src/{project_name}/config/configuration.py",
     f"src/{project_name}/pipeline/__init__.py",
     f"src/{project_name}/pipeline/DataIngesion.py",
+    f"src/{project_name}/pipeline/PrepareBaseModel.py",
     f"src/{project_name}/entity/__init__.py",
     f"src/{project_name}/entity/entity.py",
     f"src/{project_name}/constants/__init__.py",
@@ -28,6 +30,7 @@ list_of_files = [
     '.gitignore',
     "research/Dataingesion.ipynb",
     "research/Modeltrainer.ipynb",
+    "research/basemodel.ipynb",
     "templates/index.html"]
 
 
