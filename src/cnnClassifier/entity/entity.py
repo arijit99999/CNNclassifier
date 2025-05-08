@@ -22,3 +22,15 @@ class PrepareBaseModel:
     params_include_top: bool
     params_weights: str
 #3rd step for base model
+
+@dataclass(frozen=True)
+class ModelTraining:
+    root_dir: Path
+    trained_model_path: Path
+    updated_base_model_path: Path
+    EPOCHS: int
+    LEARNING_RATE: float
+    class_mode: str
+    color_mode: str
+    BATCH_SIZE: int
+#3rd step for model training 

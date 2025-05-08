@@ -4,7 +4,6 @@ from src.cnnClassifier.config.configuration import ConfigManager
 
 
 
-
 class PrepareBaseModel():
     def __init__(self):
         pass

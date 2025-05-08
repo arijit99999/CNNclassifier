@@ -1,5 +1,5 @@
 from src.cnnClassifier.constants.cont import CONFIG_FILE_PATH,PARAMS_FILE_PATH
-from src.cnnClassifier.entity.entity import DataIngesion,PrepareBaseModel
+from src.cnnClassifier.entity.entity import DataIngesion,PrepareBaseModel,ModelTraining
 from box import ConfigBox
 from src.cnnClassifier.logger import logging
 from src.cnnClassifier.exception import customexception
@@ -20,6 +20,8 @@ class ConfigManager:
          self.params=ConfigBox(yaml.safe_load(open(paramspath)))
          os.makedirs(self.config.prepare_base_model.root_dir,exist_ok=True)
          logging.info(f"{self.config.prepare_base_model.root_dir} has been created")
+         os.makedirs(self.config.training.root_dir,exist_ok=True)
+         logging.info(f"{self.config.training.root_dir} has been created")
         except Exception as e:
          logging.info("yaml file is empty")
          raise customexception(e,sys)
@@ -40,8 +42,23 @@ class ConfigManager:
             params_include_top=param_config.INCLUDE_TOP,
             params_weights=param_config.WEIGHTS)
         return base_model_config
+    def get_model_Training_config(self):
+        param_config=self.params
+        config=self.config.prepare_base_model
+        train=self.config.training
+        model_training_config=ModelTraining(root_dir=train.root_dir,
+            trained_model_path=train.trained_model_path,
+            updated_base_model_path=config.updated_base_model_path,
+            EPOCHS=param_config.EPOCHS,
+            LEARNING_RATE=param_config.LEARNING_RATE,
+            BATCH_SIZE=param_config.BATCH_SIZE,
+            class_mode=param_config.class_mode,
+            color_mode=param_config.color_mode)
+        return model_training_config
+    
     
     
      #3rd  upgrade this config.py file for data ingesion
      #here we did some changes for base model 4th step for base model
+     #4th step for model training
     
