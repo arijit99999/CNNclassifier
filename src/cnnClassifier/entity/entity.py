@@ -34,3 +34,11 @@ class ModelTraining:
     color_mode: str
     BATCH_SIZE: int
 #3rd step for model training 
+@dataclass(frozen=True)
+class ModelEval:
+    trained_model_path: Path
+    EPOCHS: int
+    LEARNING_RATE: float
+    class_mode: str
+    color_mode: str
+    BATCH_SIZE: int

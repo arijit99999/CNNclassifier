@@ -32,18 +32,10 @@ class get_final_model():
     fill_mode='nearest',
     vertical_flip=True,
     rescale=1/255)
-    test_datagen=ImageDataGenerator(rescale=1/255) #normalize
     valid_datagen=ImageDataGenerator(rescale=1/255) #normalize
     train_data_path = Path("artifacts") / "data_ingestion" / "Data" / "train"
-    test_data_path = Path("artifacts") / "data_ingestion" / "Data" / "test"
     valid_data_path = Path("artifacts") / "data_ingestion" / "Data" / "valid"
     train_data = train_datagen.flow_from_directory(train_data_path,
-    target_size=(224,224),
-    color_mode=self.color_mode,
-    class_mode=self.class_mode,  #train data generator
-    batch_size=self.BATCH_SIZE,
-    shuffle=True)
-    self.test_data = test_datagen.flow_from_directory(test_data_path,
     target_size=(224,224),
     color_mode=self.color_mode,
     class_mode=self.class_mode,  #train data generator
@@ -53,8 +45,7 @@ class get_final_model():
     target_size=(224,224),
     color_mode=self.color_mode,
     class_mode=self.class_mode,  #train data generator
-    batch_size=self.BATCH_SIZE,
-    shuffle=True)
+    batch_size=self.BATCH_SIZE)
     logging.info("data has been ready for traing")
     model=load_model(self.updated_base_model_path)
     logging.info("model has been  loaded")
@@ -62,7 +53,7 @@ class get_final_model():
     model.compile(optimizer=optimizer,loss='categorical_crossentropy',metrics=['accuracy',Precision(), Recall()])
     z=EarlyStopping(monitor="val_precision",
     min_delta=0.0001,
-    patience=3,
+    patience=2,
     verbose=0,
     mode="max",
     baseline=None,
@@ -73,13 +64,3 @@ class get_final_model():
  except Exception as e:
          logging.info("problem in traing")
          raise customexception(e,sys)
- try:
-  def model_eval(self,p:ModelTraining):
-    model=load_model(self.model_path)
-    self.eval=model.evaluate(self.test_data)
-    print(self.eval)
-    logging.info(f'{self.eval}')
- except Exception as e:
-         logging.info("problem in evaluation")
-         raise customexception(e,sys)
- #5th step for model training 

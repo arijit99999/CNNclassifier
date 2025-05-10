@@ -13,5 +13,4 @@ class ModelTraining():
         nn=model_config.get_model_Training_config()
         train=get_final_model()
         train.start_traing(nn)
-        train.model_eval(nn)
 #6th step for model training 

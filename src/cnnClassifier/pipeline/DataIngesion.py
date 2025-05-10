@@ -1,5 +1,7 @@
 from src.cnnClassifier.components.DataIngesion import datadownload
 from src.cnnClassifier.config.configuration import ConfigManager
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 
 class DataIngesionPipeline():
     def __init__(self):

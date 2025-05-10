@@ -5,6 +5,8 @@ import os
 import sys
 import gdown
 import zipfile
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 
 
 

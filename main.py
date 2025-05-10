@@ -2,6 +2,7 @@ from src.cnnClassifier.logger import logging
 from src.cnnClassifier.pipeline.DataIngesion import DataIngesionPipeline
 from src.cnnClassifier.pipeline.PrepareBaseModel import PrepareBaseModel
 from src.cnnClassifier.pipeline.ModelTraining import ModelTraining
+from src.cnnClassifier.pipeline.ModelEval import Model_Eval
 import sys
 from src.cnnClassifier.exception import customexception
 import warnings
@@ -31,6 +32,14 @@ if __name__=='__main__':
         logging.info(f'training has been  complited')
     except Exception as e:
          logging.info(f"problem in training pipeline")
+         raise customexception(e,sys)
+    try:
+        logging.info(f'evaluation tracking has  been started')
+        uu=Model_Eval()
+        uu.model_eval_start()
+        logging.info(f'tracking has been  complited')
+    except Exception as e:
+         logging.info(f"problem in mlflow tracking")
          raise customexception(e,sys)
     
 #last step

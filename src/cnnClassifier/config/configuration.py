@@ -1,8 +1,10 @@
 from src.cnnClassifier.constants.cont import CONFIG_FILE_PATH,PARAMS_FILE_PATH
-from src.cnnClassifier.entity.entity import DataIngesion,PrepareBaseModel,ModelTraining
+from src.cnnClassifier.entity.entity import DataIngesion,PrepareBaseModel,ModelTraining,ModelEval
 from box import ConfigBox
 from src.cnnClassifier.logger import logging
 from src.cnnClassifier.exception import customexception
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 import os
 import sys
 import yaml
@@ -55,6 +57,17 @@ class ConfigManager:
             class_mode=param_config.class_mode,
             color_mode=param_config.color_mode)
         return model_training_config
+    def get_model_eval_config(self):
+        param_config=self.params
+        train=self.config.training
+        model_eval_config=ModelEval(
+            trained_model_path=train.trained_model_path,
+            EPOCHS=param_config.EPOCHS,
+            LEARNING_RATE=param_config.LEARNING_RATE,
+            BATCH_SIZE=param_config.BATCH_SIZE,
+            class_mode=param_config.class_mode,
+            color_mode=param_config.color_mode)
+        return model_eval_config
     
     
     
