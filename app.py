@@ -14,14 +14,15 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)   #this folder store uploaded images
 def home():
     return render_template('test.html')
 @app.route('/pred', methods=['POST'])
-def marks():
-    os.system("dvc repro")  #here we run our pipeline 
+def pred():
+    os.system("dvc repro")#here we run our pipeline 
     model_path=os.path.join('artifacts/training','model.h5')
     model=load_model(model_path)
     file=request.files['image']
     file.save(os.path.join('uploads',file.filename))
     file_path=os.path.join('uploads',file.filename)
     image=cv.imread(file_path) #load image
+    image=image/255 #normalize
     image=cv.resize(image,(224,224))
     result=np.argmax(model(image.reshape(1,224,224,3)))
     if result==0:
