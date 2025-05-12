@@ -1,0 +1,55 @@
+stages:
+  data_ingestion:
+    cmd: python src/cnnClassifier/pipeline/DataIngesion.py   #run this  
+    deps:
+      - src/cnnClassifier/pipeline/DataIngesion.py    #dependency
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion
+
+  
+  prepare_base_model:
+    cmd: python src/cnnClassifier/pipeline/PrepareBaseModel.py
+    deps:
+      - src/cnnClassifier/pipeline/PrepareBaseModel.py
+      - config/config.yaml
+      - params.yaml
+    params:
+      - INCLUDE_TOP   #here we add parameter
+      - WEIGHTS
+    outs:
+      - artifacts/prepare_base_model
+
+  
+  training:
+    cmd: python src/cnnClassifier/pipeline/ModelTraining.py
+    deps:
+      - src/cnnClassifier/pipeline/PrepareBaseModel.py
+      - src/cnnClassifier/pipeline/ModelTraining.py
+      - config/config.yaml
+      - src/cnnClassifier/pipeline/DataIngesion.py
+    params:
+      - EPOCHS
+      - batch_size
+      - class_mode
+      - color_mode
+      - LEARNING_RATE
+
+    outs:
+      - artifacts/training
+
+  
+  
+  evaluation:
+    cmd: python src/cnnClassifier/pipeline/ModelEval.py
+    deps:
+      - src/cnnClassifier/pipeline/ModelEval.py
+      - config/config.yaml
+      - src/cnnClassifier/pipeline/ModelTraining.py
+      - src/cnnClassifier/pipeline/DataIngesion.py
+    params:
+      - EPOCHS
+      - batch_size
+      - class_mode
+      - color_mode
+      - LEARNING_RATE

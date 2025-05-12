@@ -1,0 +1,12 @@
+#AUGMENTATION: True
+#IMAGE_SIZE: [224, 224, 3]
+batch_size: 16
+INCLUDE_TOP: False  #we have to do changes in dense layer so we used false cause in imagenet there was 100 classes
+EPOCHS: 10000
+#CLASSES: 4
+WEIGHTS: imagenet   #download base model with  weights of imagnet dataset
+LEARNING_RATE: 0.001
+class_mode: 'categorical'
+color_mode: 'rgb'
+#1st for base model
+#update parameters

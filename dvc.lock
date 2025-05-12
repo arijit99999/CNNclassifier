@@ -1,0 +1,102 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/cnnClassifier/pipeline/DataIngesion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: d05b95cd71a6873396ca8754af4df9e9
+      size: 811
+    - path: src/cnnClassifier/pipeline/DataIngesion.py
+      hash: md5
+      md5: f1ff2046afbf78095633e8f645e7fdde
+      size: 923
+    outs:
+    - path: artifacts/data_ingestion
+      hash: md5
+      md5: ebfb189b1fefddd516a88a725e635ad6.dir
+      size: 373592580
+      nfiles: 1002
+  prepare_base_model:
+    cmd: python src/cnnClassifier/pipeline/PrepareBaseModel.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: d05b95cd71a6873396ca8754af4df9e9
+      size: 811
+    - path: params.yaml
+      hash: md5
+      md5: 7fad828a069a80b254e21e2c50027c98
+      size: 391
+    - path: src/cnnClassifier/pipeline/PrepareBaseModel.py
+      hash: md5
+      md5: 5cffcefb60b16fe74ed9ad1689b46802
+      size: 921
+    params:
+      params.yaml:
+        INCLUDE_TOP: false
+        WEIGHTS: imagenet
+    outs:
+    - path: artifacts/prepare_base_model
+      hash: md5
+      md5: c78b6eb47fa05bb6f3fb4a5032e8fa75.dir
+      size: 198821880
+      nfiles: 2
+  training:
+    cmd: python src/cnnClassifier/pipeline/ModelTraining.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: d05b95cd71a6873396ca8754af4df9e9
+      size: 811
+    - path: src/cnnClassifier/pipeline/DataIngesion.py
+      hash: md5
+      md5: f1ff2046afbf78095633e8f645e7fdde
+      size: 923
+    - path: src/cnnClassifier/pipeline/ModelTraining.py
+      hash: md5
+      md5: 163f7fa1fe66131a3fe7dd837521fe71
+      size: 867
+    - path: src/cnnClassifier/pipeline/PrepareBaseModel.py
+      hash: md5
+      md5: 5cffcefb60b16fe74ed9ad1689b46802
+      size: 921
+    params:
+      params.yaml:
+        EPOCHS: 10000
+        LEARNING_RATE: 0.001
+        batch_size: 16
+        class_mode: categorical
+        color_mode: rgb
+    outs:
+    - path: artifacts/training
+      hash: md5
+      md5: 4478d0483675f405888439a4e5bb7686.dir
+      size: 112829656
+      nfiles: 1
+  evaluation:
+    cmd: python src/cnnClassifier/pipeline/ModelEval.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: d05b95cd71a6873396ca8754af4df9e9
+      size: 811
+    - path: src/cnnClassifier/pipeline/DataIngesion.py
+      hash: md5
+      md5: f1ff2046afbf78095633e8f645e7fdde
+      size: 923
+    - path: src/cnnClassifier/pipeline/ModelEval.py
+      hash: md5
+      md5: e7f08547d80f5f0c3629050e8c85828b
+      size: 827
+    - path: src/cnnClassifier/pipeline/ModelTraining.py
+      hash: md5
+      md5: 163f7fa1fe66131a3fe7dd837521fe71
+      size: 867
+    params:
+      params.yaml:
+        EPOCHS: 10000
+        LEARNING_RATE: 0.001
+        batch_size: 16
+        class_mode: categorical
+        color_mode: rgb
