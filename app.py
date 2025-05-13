@@ -15,6 +15,7 @@ def home():
     return render_template('test.html')
 @app.route('/pred', methods=['POST'])
 def pred():
+    os.system("dvc init")
     os.system("dvc repro")#here we run our pipeline 
     model_path=os.path.join('artifacts/training','model.h5')
     model=load_model(model_path)
