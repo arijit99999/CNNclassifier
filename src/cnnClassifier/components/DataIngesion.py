@@ -30,7 +30,7 @@ class datadownload():
     def unzip(self,z:DataIngesion):
        try:
         self.z=z
-        loacation=os.path.join('artifacts\data_ingestion','archive.zip')
+        loacation=os.path.join('artifacts/data_ingestion','archive.zip')
         data=zipfile.ZipFile(loacation,'r')   #here again we unzip file 
         data.extractall(z.unzip_dir)
         data.close()
