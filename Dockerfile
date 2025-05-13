@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0
 RUN pip install  -r requirements.txt
 
 EXPOSE 8080
-
-RUN python main.py
+#here i added this insted of app.py
+RUN python main.py  
 
 
 # Run the application
