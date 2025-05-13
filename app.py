@@ -4,13 +4,13 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from flask import render_template,request,Flask
+os.system('python main.py')
 
 
 app=Flask(__name__,template_folder='templates/')
 UPLOAD_FOLDER = 'uploads/'
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)   #this folder store uploaded images 
-os.system('python main.py')
 @app.route ('/')
 def home():
     return render_template('test.html')
